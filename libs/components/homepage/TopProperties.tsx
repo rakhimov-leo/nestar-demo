@@ -5,10 +5,15 @@ import EastIcon from "@mui/icons-material/East";
 import { Swiper, SwiperSlide } from "swiper/react";
 import TopPropertyCard from "./TopPropertyCard";
 
-const TopProperties = ({ initialInput, ...props }: any) => {
-  const [topProperties, setTopProperties] = useState<number[]>(
-    initialInput || [1, 2, 3, 4, 5, 6, 7]
-  );
+type TopPropertiesProps = {
+  initialInput?: number[];
+};
+
+const TopProperties = ({
+  initialInput = [1, 2, 3, 4, 5, 6, 7],
+  ...props
+}: TopPropertiesProps) => {
+  const [topProperties, setTopProperties] = useState<number[]>(initialInput);
 
   return (
     <Stack className={"top-properties"}>
@@ -37,22 +42,16 @@ const TopProperties = ({ initialInput, ...props }: any) => {
             }}
             pagination={{ el: ".swiper-top-pagination" }}
           >
-            {topProperties.map((property, index) => {
-              return (
-                <SwiperSlide className={"top-property-slide"} key={index}>
-                  <TopPropertyCard />
-                </SwiperSlide>
-              );
-            })}
+            {topProperties.map((property, index) => (
+              <SwiperSlide className={"top-property-slide"} key={index}>
+                <TopPropertyCard />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </Stack>
       </Stack>
     </Stack>
   );
-};
-
-TopProperties.defaultProps = {
-  initialInput: [1, 2, 3, 4, 5, 6, 7],
 };
 
 export default TopProperties;

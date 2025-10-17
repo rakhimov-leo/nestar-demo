@@ -4,7 +4,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import PopularPropertyCard from "./PopularPropertyCard";
 
-const PopularProperties = ({ initialInput, ...props }: any) => {
+type PopularPropertiesProps = {
+  initialInput?: number[];
+};
+
+const PopularProperties = ({
+  initialInput = [1, 2, 3, 4, 5, 6, 7],
+  ...props
+}: PopularPropertiesProps) => {
   const [popularProperties, setPopularProperties] =
     useState<number[]>(initialInput);
 
@@ -36,22 +43,16 @@ const PopularProperties = ({ initialInput, ...props }: any) => {
             }}
             pagination={{ el: ".swiper-popular-pagination" }}
           >
-            {popularProperties.map((property, index) => {
-              return (
-                <SwiperSlide key={index} className={"popular-property-slide"}>
-                  <PopularPropertyCard />
-                </SwiperSlide>
-              );
-            })}
+            {popularProperties.map((property, index) => (
+              <SwiperSlide key={index} className={"popular-property-slide"}>
+                <PopularPropertyCard />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </Stack>
       </Stack>
     </Stack>
   );
-};
-
-PopularProperties.defaultProps = {
-  initialInput: [1, 2, 3, 4, 5, 6, 7],
 };
 
 export default PopularProperties;

@@ -8,7 +8,14 @@ import SwiperCore, { Navigation } from "swiper";
 
 SwiperCore.use([Navigation]);
 
-const TopAgents = ({ initialInput, ...props }: any) => {
+type TopAgentsProps = {
+  initialInput?: number[];
+};
+
+const TopAgents = ({
+  initialInput = [1, 2, 3, 4, 5, 6, 7],
+  ...props
+}: TopAgentsProps) => {
   const [topAgents, setTopAgents] = useState<number[]>(initialInput);
 
   return (
@@ -40,13 +47,11 @@ const TopAgents = ({ initialInput, ...props }: any) => {
                 prevEl: ".swiper-agents-prev",
               }}
             >
-              {topAgents.map((agent, index) => {
-                return (
-                  <SwiperSlide className={"top-agents-slide"} key={index}>
-                    <TopAgentCard />
-                  </SwiperSlide>
-                );
-              })}
+              {topAgents.map((agent, index) => (
+                <SwiperSlide className={"top-agents-slide"} key={index}>
+                  <TopAgentCard />
+                </SwiperSlide>
+              ))}
             </Swiper>
           </Box>
           <Box className={"switch-btn swiper-agents-next"}>
@@ -56,10 +61,6 @@ const TopAgents = ({ initialInput, ...props }: any) => {
       </Stack>
     </Stack>
   );
-};
-
-TopAgents.defaultProps = {
-  initialInput: [1, 2, 3, 4, 5, 6, 7],
 };
 
 export default TopAgents;
